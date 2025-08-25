@@ -18,6 +18,7 @@ const API_BASE_URL = isDevelopment
   : 'https://api.allorigins.win/raw?url=https://api.football-data.org/v4';
 
 console.log('🌐 API Base URL:', API_BASE_URL);
+console.log('🚀 Using CORS proxy for production:', !isDevelopment);
 
 const API_KEY = 'f0feb9b1c09c4788931d390d46c8bd8d';
 
