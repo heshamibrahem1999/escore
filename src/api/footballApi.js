@@ -1,7 +1,13 @@
 import axios from 'axios';
 
-// Use proxy URL instead of direct API calls to avoid CORS issues
-const API_BASE_URL = '/api/v4';
+// Check if we're in development or production
+const isDevelopment = process.env.NODE_ENV === 'development';
+
+// Use proxy URL for development, CORS proxy for production
+const API_BASE_URL = isDevelopment 
+  ? '/api/v4' 
+  : 'https://corsproxy.io/?https://api.football-data.org/v4';
+
 const API_KEY = 'f0feb9b1c09c4788931d390d46c8bd8d';
 
 // Create axios instance with default config
@@ -12,6 +18,22 @@ const apiClient = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+// Add request interceptor for production to handle CORS
+if (!isDevelopment) {
+  apiClient.interceptors.request.use(
+    (config) => {
+      // Add CORS headers for production
+      config.headers['Access-Control-Allow-Origin'] = '*';
+      config.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS';
+      config.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, X-Auth-Token';
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+}
 
 // API service functions
 export const footballApi = {
