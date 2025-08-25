@@ -2,11 +2,22 @@ import axios from 'axios';
 
 // Check if we're in development or production
 const isDevelopment = process.env.NODE_ENV === 'development';
+const isGitHubPages = window.location.hostname === 'heshamibrahem1999.github.io';
+
+console.log('🔍 Environment Detection:', {
+  NODE_ENV: process.env.NODE_ENV,
+  isDevelopment,
+  hostname: window.location.hostname,
+  isGitHubPages,
+  fullUrl: window.location.href
+});
 
 // Use proxy URL for development, CORS proxy for production
 const API_BASE_URL = isDevelopment 
   ? '/api/v4' 
-  : 'https://corsproxy.io/?https://api.football-data.org/v4';
+  : 'https://api.allorigins.win/raw?url=https://api.football-data.org/v4';
+
+console.log('🌐 API Base URL:', API_BASE_URL);
 
 const API_KEY = 'f0feb9b1c09c4788931d390d46c8bd8d';
 
