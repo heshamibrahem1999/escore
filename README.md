@@ -35,7 +35,7 @@ A modern, responsive football statistics and management platform built with Reac
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (version 14 or higher)
+- Node.js (version 18 or higher)
 - npm or yarn package manager
 
 ### Installation
@@ -58,6 +58,23 @@ A modern, responsive football statistics and management platform built with Reac
 
 4. **Open your browser**
    Navigate to `http://localhost:3000` to view the application
+
+### 🚀 Deploying the API Proxy
+
+This project includes a serverless proxy to handle CORS issues. To deploy:
+
+1. **Deploy the proxy:**
+   ```bash
+   # Windows
+   deploy-proxy.bat
+   
+   # Linux/Mac
+   ./deploy-proxy.sh
+   ```
+
+2. **Update your React app** with the new proxy URL (see `DEPLOYMENT.md`)
+
+3. **For detailed deployment instructions**, check `DEPLOYMENT.md`
 
 ## 🛠️ Built With
 

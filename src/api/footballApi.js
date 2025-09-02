@@ -12,10 +12,10 @@ console.log('🔍 Environment Detection:', {
   fullUrl: window.location.href
 });
 
-// Use proxy URL for development, CORS proxy for production
+// Use local proxy for development, serverless proxy for production
 const API_BASE_URL = isDevelopment 
   ? '/api/v4' 
-  : 'https://api.allorigins.win/raw?url=https://api.football-data.org/v4';
+  : 'https://your-vercel-app.vercel.app/api/football-proxy';
 
 console.log('🌐 API Base URL:', API_BASE_URL);
 console.log('🚀 Using CORS proxy for production:', !isDevelopment);
@@ -26,19 +26,21 @@ const API_KEY = 'f0feb9b1c09c4788931d390d46c8bd8d';
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
   headers: {
-    'X-Auth-Token': API_KEY,
     'Content-Type': 'application/json',
   },
 });
 
-// Add request interceptor for production to handle CORS
+// Add request interceptor for production to use the proxy path parameter
 if (!isDevelopment) {
   apiClient.interceptors.request.use(
     (config) => {
-      // Add CORS headers for production
-      config.headers['Access-Control-Allow-Origin'] = '*';
-      config.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS';
-      config.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, X-Auth-Token';
+      // For production, we need to pass the path as a query parameter
+      const originalUrl = config.url;
+      config.url = '';
+      config.params = {
+        ...config.params,
+        path: originalUrl
+      };
       return config;
     },
     (error) => {
