@@ -15,7 +15,7 @@ echo "📦 Installing dependencies..."
 npm install
 
 echo "🌐 Deploying to Vercel..."
-vercel --prod
+vercel --prod --cwd .
 
 echo "✅ Deployment complete!"
 echo "🔗 Update your React app with the new proxy URL"
