@@ -1,9 +1,20 @@
 {
   "version": 2,
-  "functions": {
-    "api/football-proxy.js": {
-      "maxDuration": 30
+  "builds": [
+    {
+      "src": "api/football-proxy.js",
+      "use": "@vercel/node"
     }
-  }
+  ],
+  "routes": [
+    {
+      "src": "/api/football-proxy/(.*)",
+      "dest": "/api/football-proxy.js"
+    }
+  ],
+  "buildCommand": "echo 'No build required for API functions'",
+  "installCommand": "cd api && npm install",
+  "outputDirectory": "api",
+  "framework": null
 }
   
