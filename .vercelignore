@@ -1,11 +1,4 @@
-# Ignore everything except the API directory
-*
-!api/
-!vercel.json
-!package.json
-!package-lock.json
-
-# Specifically ignore React app files
+# Ignore React app files and other unnecessary files
 src/
 public/
 build/
@@ -14,3 +7,7 @@ node_modules/
 *.sh
 *.bat
 .env*
+.git/
+.gitignore
+README.md
+DEPLOYMENT.md
